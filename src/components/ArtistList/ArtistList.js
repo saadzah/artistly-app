@@ -10,8 +10,8 @@ const ArtistList = ({ artists }) => {
         <>
             <Grid container spacing={5}>
                 {artists.map((artist) => (
-                    <Grid item xs={12} md={4} xl>
-                        <ArtistCard key={artist?.name} artist={artist} />
+                    <Grid key={artist?.name} item xs={12} md={4} xl>
+                        <ArtistCard artist={artist} />
                     </Grid>
                 ))}
 

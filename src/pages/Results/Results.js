@@ -21,11 +21,12 @@ const Results = () => {
     return (
         <Container>
             <SearchBar text={searchTerm} placeHolderText="Search Artists" onSubmit={onSearchChange}></SearchBar>
-            
             <div className="artist-list-container">
-            <h2>{artists?.length > 0 ? artists?.length + ` Results found for "${searchTerm}"` : ''}</h2>
-            <Divider />
-                <ArtistList artists={artists}></ArtistList>
+                <h2>{artists?.length > 0 ? artists?.length + ` Results found for "${searchTerm}"` : 'No items found'}</h2>
+                <Divider />
+                <div className="artist-list">
+                    <ArtistList artists={artists}></ArtistList>
+                </div>
             </div>
         </Container>
     )

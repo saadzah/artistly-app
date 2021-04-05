@@ -35,7 +35,7 @@ const ArtistCard = ({artist}) => {
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary">
+                <Button size="small" color="primary" onClick={() => { window.open(artist?.facebook_page_url, '_blank') }}>
                     Facebook
                 </Button>
                 <Button size="small" color="primary">
