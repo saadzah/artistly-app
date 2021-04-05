@@ -1,6 +1,8 @@
 const initialState = {
     search: '',
-    artists: []
+    artists: [],
+    selectedArtist: {},
+    events: []
 };
 
 const artistlyReducer = (state = JSON.parse(JSON.stringify(initialState)), action) => {
@@ -8,7 +10,11 @@ const artistlyReducer = (state = JSON.parse(JSON.stringify(initialState)), actio
         case 'SEARCH_CHANGE':
             return { ...state, search: action.payload };
         case 'SET_ARTISTS':
-            return { ...state, artists: action.payload.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i) };
+            return { ...state, artists: action.payload.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i) };
+        case 'SELECT_ARTIST':
+            return { ...state, selectedArtist: action.payload };
+        case 'SET_EVENTS':
+            return { ...state, events: action.payload};
         default:
             return state;
     }

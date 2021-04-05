@@ -1,6 +1,6 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
-import { requestArtistData, requestArtists } from '../api';
-import { setArtists } from '../actions';
+import { requestArtistData, requestArtists, requestEventsData } from '../api';
+import { setArtists, setEvents } from '../actions';
 
 export function* handleArtists(action) {
     try {
@@ -21,6 +21,17 @@ export function* handleArtists(action) {
     }
 }
 
+export function* handleEvents(action) {
+    try {
+        const response = yield call(requestEventsData, action);
+        const events = response.data;
+        yield put(setEvents(events));
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 export function* watcherSaga() {
-    yield takeLatest('GET_ARTISTS', handleArtists);
+    yield takeLatest('SEARCH_CHANGE', handleArtists);
+    yield takeLatest('SELECT_ARTIST', handleEvents);
 };

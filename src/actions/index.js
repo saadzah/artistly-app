@@ -12,9 +12,16 @@ export const setArtists = (value) => {
     };
 };
 
-export const getArtists = (value) => {
+export const selectArtist = (value) => {
     return {
-        type: 'GET_ARTISTS',
+        type: 'SELECT_ARTIST',
+        payload: value
+    };
+};
+
+export const setEvents = (value) => {
+    return {
+        type: 'SET_EVENTS',
         payload: value
     };
 };

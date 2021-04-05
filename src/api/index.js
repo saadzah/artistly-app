@@ -7,3 +7,7 @@ export function requestArtists(action) {
 export function requestArtistData(action) {
     return axios.get('https://rest.bandsintown.com/artists/'+ action +'?app_id=test');
 }
+
+export function requestEventsData(action) {
+    return axios.get('https://rest.bandsintown.com/artists/'+ action.payload.name +'/events?app_id=test&date=upcoming');
+}

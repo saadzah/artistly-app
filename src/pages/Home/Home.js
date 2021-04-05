@@ -2,7 +2,7 @@ import React from 'react'
 import Container from '@material-ui/core/Container';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import { useSelector, useDispatch } from 'react-redux';
-import { searchChange, getArtists } from '../../actions';
+import { searchChange } from '../../actions';
 import { useHistory } from "react-router-dom";
 
 const Home = () => {
@@ -14,7 +14,6 @@ const Home = () => {
 
     const onSearchChange = (value) => {
         dispatch(searchChange(value));
-        dispatch(getArtists(value));
         history.push('/results');
     };
 

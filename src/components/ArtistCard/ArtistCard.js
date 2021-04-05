@@ -8,18 +8,28 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
+import { useHistory } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { selectArtist } from '../../actions';
 
 const useStyles = makeStyles({
     root: {
-        maxWidth: 345,
     },
     media: {
         height: 140,
     },
 });
 
-const ArtistCard = ({artist}) => {
+const ArtistCard = ({ artist, showActions }) => {
+
     const classes = useStyles();
+    const history = useHistory();
+    const dispatch = useDispatch();
+
+    const viewEvents = () => {
+        dispatch(selectArtist(artist));
+        history.push('/events');
+    };
 
     return (
         <Card className={classes.root}>
@@ -34,24 +44,29 @@ const ArtistCard = ({artist}) => {
                     </Typography>
                 </CardContent>
             </CardActionArea>
-            <CardActions>
-                <Button size="small" color="primary" onClick={() => { window.open(artist?.facebook_page_url, '_blank') }}>
-                    Facebook
+            { showActions ? 
+                <CardActions>
+                    <Button size="small" color="primary" onClick={() => { window.open(artist?.facebook_page_url, '_blank') }}>
+                        Facebook
                 </Button>
-                <Button size="small" color="primary">
-                    View Events
+                    <Button size="small" color="primary" onClick={viewEvents}>
+                        View Events
                 </Button>
-            </CardActions>
+                </CardActions>
+                : ''
+            }
         </Card>
     );
 }
 
 ArtistCard.defaultProps = {
-    artist: {}
+    artist: {},
+    showActions: true
 }
 
 ArtistCard.propTypes = {
-    artists: PropTypes.object
+    artists: PropTypes.object,
+    showActions: PropTypes.bool
 }
 
 export default ArtistCard
