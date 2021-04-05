@@ -1,5 +1,6 @@
-import React from 'react'
+import React from 'react';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import './SearchBar.css';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -25,14 +26,28 @@ const useStyles = makeStyles((theme) =>
     }),
 );
 
-const SearchBar = ({ placeHolderText }) => {
+const SearchBar = ({ text, placeHolderText, onSubmit }) => {
     const classes = useStyles();
+
+    const [searchText, setSearchText] = useState(text);
+
+    const handleTextChange = (event) => {
+        setSearchText(event.target.value);
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        onSubmit(searchText);
+    };
+
     return (
         <>
-            <Paper component="form" className={classes.root}>
+            <Paper component="form" className={classes.root} noValidate onSubmit={handleSubmit}>
                 <InputBase
                     className={classes.input}
                     placeholder={placeHolderText}
+                    defaultValue={searchText}
+                    onChange={handleTextChange}
                     inputProps={{ 'aria-label': placeHolderText }}
                 />
                 <IconButton type="submit" className={classes.iconButton} aria-label="search">
@@ -45,10 +60,13 @@ const SearchBar = ({ placeHolderText }) => {
 
 SearchBar.defaultProps = {
     placeHolderText: 'Search',
+    text: '',
 }
 
 SearchBar.propTypes = {
-    placeHolderText: PropTypes.string
+    placeHolderText: PropTypes.string,
+    text: PropTypes.string,
+    onSubmit: PropTypes.func,
 }
 
 export default SearchBar
