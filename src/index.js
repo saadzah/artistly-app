@@ -6,11 +6,19 @@ import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from './theme';
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import artistlyReducer from './reducers/artistly';
+import createSagaMiddelware from 'redux-saga';
+import { watcherSaga } from './sagas/saga';
 
-let store = createStore(artistlyReducer);
+const sagaMiddleware = createSagaMiddelware();
+const middleware = [sagaMiddleware];
+
+const store = createStore(artistlyReducer, applyMiddleware(...middleware));
+
+sagaMiddleware.run(watcherSaga);
+
 
 ReactDOM.render(
   <Provider store={store}>
