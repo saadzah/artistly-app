@@ -26,7 +26,7 @@ artistly-app/
     setupTests.js
 ```
 
-## [Libraries/Tools](#lib-tools)
+## Libraries/Tools
 - React
 - Redux for state management
 - Redux-Saga for middleware
